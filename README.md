@@ -51,7 +51,6 @@ database/                       SQLs do Supabase, rodar nesta ordem
   tests/                        testes dos SQLs num Postgres em memória
 docs/
   COMO-ATIVAR.md                passo a passo completo de ativação
-  portfolio-prints/             prints originais do portfólio
 ```
 
 ## Rodar localmente

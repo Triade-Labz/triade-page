@@ -8,7 +8,7 @@ export function Faq() {
   const uid = useId();
 
   return (
-    <section className="shell void faq curve-b" id="faq" aria-labelledby="faq-title">
+    <section className="shell navy faq curve-a" id="faq" aria-labelledby="faq-title">
       <div className="container">
         <div className="section-head">
           <Reveal as="p" className="label">

@@ -73,7 +73,7 @@ describe("formulário de orçamento", () => {
     render(<App />);
     await user.click(screen.getByRole("link", { name: "Escolher Profissional" }));
     expect(within(form()).getByLabelText("Interesse")).toHaveValue("profissional");
-    await user.click(screen.getByRole("link", { name: /Agendar avaliação de segurança/ }));
+    await user.click(screen.getByRole("link", { name: /Agendar análise de vulnerabilidades/ }));
     expect(within(form()).getByLabelText("Interesse")).toHaveValue("seguranca");
   });
 

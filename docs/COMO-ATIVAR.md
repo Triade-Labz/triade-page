@@ -8,7 +8,6 @@
 - `database/03-aviso-email.sql` — manda um e-mail a cada lead novo do site.
 - `database/04-permissoes-site-crm.sql` — libera o site para gravar leads e o CRM para lê-los (obrigatório).
 - `database/extra-atualizacao-servicos.sql` — só se a Parte 1 tiver sido rodada antes dos serviços novos.
-- `src/landing/assets/portfolio/` — prints do portfólio usados no site (`docs/portfolio-prints/` guarda os originais).
 - `public/triade-simbolo.svg` — símbolo da marca.
 - `vercel.json` — configuração de publicação e cabeçalhos de segurança na Vercel.
 
@@ -66,5 +65,4 @@ Se o CRM mostrar "atualizando a cada 30 s" no topo, o tempo real não conectou: 
 - Domínio (.com.br no registro.br, pode ser registrado com CPF).
 - WhatsApp Business com número da empresa.
 - Apagar leads não convertidos com mais de 12 meses (prazo prometido na política de privacidade).
-- Depoimentos reais (a seção fica oculta enquanto `TESTIMONIALS` em `src/landing/content.ts` estiver vazio).
-- Autorização dos clientes GVG e FABIN para mostrar os projetos no portfólio.
+- Portfólio e depoimentos só com autorização por escrito dos clientes (a seção de portfólio foi retirada do site até lá).

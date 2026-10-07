@@ -81,7 +81,7 @@ begin
     when 'profissional' then 'Site · Profissional (Landing + Banco de Dados)'
     when 'completo'     then 'Site · Completo (+ Suporte 24h)'
     when 'suporte'      then 'Suporte em TI'
-    when 'seguranca'    then 'Pentest / segurança'
+    when 'seguranca'    then 'Análise de vulnerabilidades'
     else 'Ainda não sabe, quer orientação'
   end;
 

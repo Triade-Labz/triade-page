@@ -6,7 +6,7 @@ const PERKS = ["Orçamento gratuito e sem compromisso", "Proposta clara em até 
 
 export function Contact({ prefill }: { prefill: PlanPrefill | null }) {
   return (
-    <section className="shell navy final curve-a" id="contato" aria-labelledby="cta-title">
+    <section className="shell void final curve-b" id="contato" aria-labelledby="cta-title">
       <div className="container">
         <Reveal className="cta-block">
           <div className="blob blob-1 cta-blob" aria-hidden="true" />

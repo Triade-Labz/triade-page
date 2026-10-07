@@ -1,6 +1,6 @@
 -- =====================================================================
 -- Atualização: aceitar os novos interesses do formulário
--- (suporte em TI e pentest). Rode só se já executou a Parte 1 antes.
+-- (suporte em TI e análise de vulnerabilidades). Rode só se já executou a Parte 1 antes.
 -- Supabase → SQL Editor → colar → Run
 -- =====================================================================
 alter table public.leads drop constraint if exists leads_plano_check;

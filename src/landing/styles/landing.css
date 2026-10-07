@@ -300,29 +300,6 @@ button,input,select{font:inherit;color:inherit}
 .step .dur{display:inline-flex;margin-top:20px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);border:1px solid rgba(255,107,61,.3);padding:5px 12px;border-radius:var(--r-pill)}
 
 /* ==========================================================
-   PORTFOLIO
-   ========================================================== */
-.work{z-index:5;overflow:hidden;overflow:clip}
-.work .container{position:relative;z-index:1}
-.portfolio{display:grid;gap:16px}
-.project{position:relative;overflow:hidden;border-radius:var(--r-card);border:1px solid var(--glass-border);background:var(--navy-surface);min-height:300px;display:flex;flex-direction:column;transition:transform .6s var(--ease),border-color .4s}
-.project:hover{transform:translateY(-6px);border-color:rgba(154,168,191,.35)}
-/* ==========================================================
-   TESTIMONIALS
-   ========================================================== */
-.testimonials{display:grid;gap:16px;margin-top:120px}
-.quote{padding:32px;display:flex;flex-direction:column;animation:float 8s ease-in-out infinite}
-.quote:nth-child(2){animation-delay:-3s}.quote:nth-child(3){animation-delay:-5.5s}
-.stars{display:flex;gap:3px;color:var(--beige);margin-bottom:20px}
-.stars svg{width:16px;height:16px}
-.quote blockquote{margin:0 0 28px;font-size:17px;line-height:1.6;letter-spacing:-0.005em;color:var(--off-white);flex:1}
-.who{display:flex;align-items:center;gap:14px}
-.who .av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;color:var(--navy-deep);background:var(--beige);flex:none}
-.who .av.s{background:var(--sand)}.who .av.m{background:#A9B3C6}
-.who b{display:block;font-size:14px;font-weight:600}
-.who span{font-size:12.5px;color:var(--text-muted);line-height:1.4;display:block}
-
-/* ==========================================================
    FAQ
    ========================================================== */
 .faq{z-index:4}
@@ -382,7 +359,7 @@ button,input,select{font:inherit;color:inherit}
 /* ==========================================================
    FOOTER
    ========================================================== */
-.footer{z-index:2;background:var(--void-black);margin-top:calc(var(--r-section) * -1);padding:calc(var(--r-section) + 64px) 0 40px}
+.footer{z-index:2;background:var(--navy-deep);margin-top:calc(var(--r-section) * -1);padding:calc(var(--r-section) + 64px) 0 40px}
 .foot-grid{display:grid;gap:40px;padding-bottom:56px;border-bottom:1px solid rgba(154,168,191,.08)}
 .foot-brand p{color:var(--text-muted);max-width:34ch;margin:18px 0 24px}
 .socials{display:flex;gap:10px}
@@ -438,9 +415,6 @@ button,input,select{font:inherit;color:inherit}
   .stats{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
   .benefits{grid-template-columns:repeat(2,1fr)}
   .timeline{grid-template-columns:repeat(2,1fr)}
-  .portfolio{grid-template-columns:repeat(2,1fr)}
-  .testimonials{grid-template-columns:repeat(2,1fr)}
-  .testimonials .quote:last-child{grid-column:span 2}
   .speed{display:flex}
   .cta-block{padding:72px 56px}
   .foot-grid{grid-template-columns:1.6fr 1fr 1fr 1.2fr}
@@ -457,8 +431,6 @@ button,input,select{font:inherit;color:inherit}
   .timeline{grid-template-columns:repeat(4,1fr);gap:24px;padding-top:40px}
   .timeline-curve{display:block;position:absolute;left:0;right:0;top:0;width:100%;height:120px;color:var(--sand);opacity:.45;pointer-events:none}
   .step:nth-child(even){margin-top:64px}
-  .testimonials{grid-template-columns:repeat(3,1fr)}
-  .testimonials .quote:last-child{grid-column:auto}
   .faq .container{grid-template-columns:.8fr 1.2fr;gap:80px;align-items:start}
   .faq .section-head{position:sticky;top:120px}
   .cta-block{grid-template-columns:1.1fr .9fr;align-items:center;padding:96px 88px;gap:64px}
@@ -493,35 +465,6 @@ button,input,select{font:inherit;color:inherit}
 .field .consent{font-family:var(--font)}
 
 [hidden]{display:none!important}
-/* ---------- Portfólio real ---------- */
-.portfolio.real{grid-template-columns:1fr;grid-auto-rows:auto}
-.case{min-height:0;border-radius:var(--r-card)}
-.case:hover{transform:translateY(-6px)}
-.browser{margin:14px 14px 0;border-radius:18px 18px 10px 10px;overflow:hidden;background:#0A1324;border:1px solid rgba(154,168,191,.14)}
-.browser .bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:#14213A}
-.browser .bar i{width:8px;height:8px;border-radius:50%;background:rgba(154,168,191,.35)}
-.browser .bar span{margin-left:10px;font-family:var(--mono);font-size:11.5px;color:var(--text-muted)}
-.browser img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;object-position:top center;transition:transform .8s var(--ease)}
-.case:hover .browser img{transform:scale(1.02)}
-.case-body{padding:22px 24px 26px}
-.case-body small{display:block;font-family:var(--mono);font-size:12.5px;color:var(--beige)}
-.case-body h3{font-size:22px;letter-spacing:-0.02em;margin:6px 0 8px;line-height:1.25}
-.case-body p{margin:0 0 16px;color:var(--text-muted);font-size:15px;line-height:1.6}
-.case-tags{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
-.case-tags li{font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid rgba(154,168,191,.22);color:var(--off-white)}
-.wip{margin-top:20px;padding:22px 24px;border-radius:var(--r-card);border:1px dashed rgba(154,168,191,.3)}
-.wip-title{font-family:var(--mono);font-size:13px;color:var(--beige);margin:0 0 14px}
-.wip ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
-.wip li{display:flex;flex-direction:column}
-.wip li b{font-size:15px}
-.wip li span{color:var(--text-muted);font-size:13.5px}
-@media (min-width:768px){
-  .portfolio.real{grid-template-columns:1fr 1fr}
-  .wip ul{grid-template-columns:repeat(3,1fr);gap:20px}
-  .portfolio.real .case:last-child:nth-child(odd){grid-column:1/-1}
-}
-@media (min-width:1200px){ .portfolio.real{grid-template-columns:repeat(3,1fr);grid-auto-rows:auto} .portfolio.real .case:last-child:nth-child(odd){grid-column:auto} }
-
 /* ---------- Serviços: os três pilares ---------- */
 .trust .section-head{margin-bottom:48px}
 .pillars{display:grid;gap:16px;margin-bottom:72px;counter-reset:pilar}
@@ -546,13 +489,9 @@ button,input,select{font:inherit;color:inherit}
 .timeline{list-style:none;padding-left:0;margin:0}
 .lead.faq-sub{opacity:1;color:var(--text-muted);font-size:16px}
 .faq-sub a{color:var(--beige)}
-.testimonials-head{margin-top:120px;margin-bottom:0}
-.testimonials-head + .testimonials{margin-top:56px}
-.quote{margin:0}
 .cta-blob{top:-200px;right:auto;left:-160px}
 .form .fields{display:grid;gap:16px}
 .form-submit{margin-top:8px}
 .field label.consent{letter-spacing:0;text-transform:none;font-weight:400;color:var(--text-muted);font-size:13px}
-a.project{color:inherit}
 .form-error-dev{display:block;margin-top:10px;padding:8px 10px;border-radius:10px;background:rgba(0,0,0,.25);font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;word-break:break-word}
 .badge-delivery b{max-width:200px;line-height:1.3}

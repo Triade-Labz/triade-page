@@ -7,7 +7,6 @@ import { Hero } from "./components/Hero";
 import type { PlanPrefill } from "./components/LeadForm";
 import { Navbar } from "./components/Navbar";
 import { Offer } from "./components/Offer";
-import { Portfolio } from "./components/Portfolio";
 import { Process } from "./components/Process";
 import { Services } from "./components/Services";
 
@@ -26,7 +25,6 @@ export function App() {
         <Services onChoosePlan={choosePlan} />
         <Offer onChoosePlan={choosePlan} />
         <Process />
-        <Portfolio />
         <Faq />
         <Contact prefill={prefill} />
       </main>

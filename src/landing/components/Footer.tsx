@@ -13,7 +13,7 @@ const SOCIALS: { key: SocialKey; label: string; Icon: ComponentType<SVGProps<SVG
 const SERVICOS = [
   { href: "#planos", label: "Sites e sistemas" },
   { href: "#servicos", label: "Suporte em TI" },
-  { href: "#servicos", label: "Pentest e segurança" },
+  { href: "#servicos", label: "Análise de vulnerabilidades" },
   { href: "#contato", label: "Projeto sob medida" },
 ];
 

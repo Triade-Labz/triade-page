@@ -1,7 +1,4 @@
 import type { Plano } from "../shared/leads";
-import gvgImg from "./assets/portfolio/gvg.webp";
-import sajImg from "./assets/portfolio/saj.webp";
-import fabinImg from "./assets/portfolio/fabin-portal.webp";
 
 /* Textos da landing. Para mudar conteúdo, edite aqui: os componentes só desenham. */
 
@@ -30,10 +27,10 @@ export const PILLARS: Pillar[] = [
   },
   {
     tag: "03 / proteger",
-    title: "Pentest e testes de vulnerabilidade",
-    text: "Testamos seus sistemas como um atacante faria, com a sua autorização, e mostramos como corrigir.",
-    items: ["Testes em sites, aplicações e redes", "Relatório com riscos priorizados e correções", "Reteste depois que tudo for corrigido"],
-    cta: { label: "Agendar avaliação de segurança", href: "#contato", plano: "seguranca" },
+    title: "Análise de vulnerabilidades",
+    text: "Fazemos uma varredura de segurança nos seus sites e sistemas e entregamos um relatório com as correções recomendadas.",
+    items: ["Varredura em sites, aplicações e redes", "Relatório com riscos priorizados e correções", "Nova análise depois das correções"],
+    cta: { label: "Agendar análise de vulnerabilidades", href: "#contato", plano: "seguranca" },
   },
 ];
 
@@ -127,60 +124,6 @@ export const STEPS = [
   { title: "Lançamento", text: "Configuramos domínio e hospedagem, testamos tudo e colocamos seu site no ar.", dur: "1 dia" },
 ];
 
-export interface Case {
-  bar: string;
-  img: { src: string; width: number; height: number; alt: string };
-  kicker: string;
-  title: string;
-  text: string;
-  tags: string[];
-  /** Quando o site estiver no ar, o card vira link. */
-  url?: string;
-}
-
-export const CASES: Case[] = [
-  {
-    bar: "gvg · ginástica rítmica",
-    img: { src: gvgImg, width: 1100, height: 590, alt: "Página inicial do site da GVG Ginástica Rítmica, com chamada para agendar aula experimental" },
-    kicker: "Escola de ginástica · Canoas, RS",
-    title: "GVG Ginástica Rítmica",
-    text: "Site da escola com agendamento de aula experimental pelo WhatsApp e portal do aluno, com banco de dados completo por trás.",
-    tags: ["Site institucional", "Portal do aluno", "Banco de dados"],
-  },
-  {
-    bar: "saj · fabin",
-    img: { src: sajImg, width: 1100, height: 524, alt: "Tela de acesso do sistema SAJ, Serviço de Assistência Jurídica da FABIN" },
-    kicker: "Ensino jurídico · Faculdade FABIN",
-    title: "SAJ: Núcleo de Prática Jurídica",
-    text: "Sistema onde alunos redigem peças processuais, professores corrigem cada versão e a secretaria aprova cadastros e organiza as turmas.",
-    tags: ["Sistema web", "3 perfis de acesso", "Banco de dados"],
-  },
-  {
-    bar: "fabin · portal acadêmico",
-    img: { src: fabinImg, width: 1100, height: 482, alt: "Painel do aluno no Portal Acadêmico da FABIN, com horário da semana e frequência" },
-    kicker: "Ensino superior · Porto Alegre, RS",
-    title: "Portal Acadêmico FABIN",
-    text: "Site da faculdade e portal onde o aluno acompanha horários, frequência, materiais, boletim, rematrícula e financeiro, tudo integrado ao trabalho da secretaria e dos professores.",
-    tags: ["Site + portal", "Área do aluno", "Banco de dados"],
-  },
-];
-
-export const WIP = [
-  { title: "Imobiliária", text: "vitrine de imóveis" },
-  { title: "Barbearia", text: "agendamento e cursos online em vídeo" },
-  { title: "Loja de celulares", text: "landing page e sistema de vendas" },
-];
-
-export interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
-  initials: string;
-}
-
-/** Só depoimentos reais e autorizados. Lista vazia = seção oculta. */
-export const TESTIMONIALS: Testimonial[] = [];
-
 export const FAQ = [
   {
     q: "Qual é o prazo de entrega?",
@@ -199,8 +142,8 @@ export const FAQ = [
     a: "Você tem um canal direto via WhatsApp e e-mail, com atendimento a qualquer hora, inclusive fins de semana e feriados. Incidentes críticos têm tempo de resposta de até 1 hora.",
   },
   {
-    q: "Como funciona o pentest? É seguro para o meu sistema?",
-    a: "Antes de começar, definimos juntos o escopo e você autoriza os testes por escrito. Os testes são planejados para não derrubar o sistema e, ao final, você recebe um relatório com o que foi encontrado, o nível de risco de cada item e como corrigir. Depois das correções, fazemos um reteste.",
+    q: "Como funciona a análise de vulnerabilidades? É segura para o meu sistema?",
+    a: "Antes de começar, definimos juntos o escopo e você autoriza a análise por escrito. A varredura é planejada para não derrubar o sistema e, ao final, você recebe um relatório com o que foi encontrado, o nível de risco de cada item e como corrigir. Depois das correções, fazemos uma nova análise.",
   },
   {
     q: "Posso trocar de plano depois?",
@@ -216,6 +159,5 @@ export const NAV_LINKS = [
   { href: "#servicos", label: "Serviços" },
   { href: "#planos", label: "Planos" },
   { href: "#processo", label: "Processo" },
-  { href: "#portfolio", label: "Portfólio" },
   { href: "#faq", label: "FAQ" },
 ];
