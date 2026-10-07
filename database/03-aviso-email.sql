@@ -32,6 +32,7 @@ create table if not exists public.crm_config (
   valor text
 );
 alter table public.crm_config enable row level security;   -- sem regras = só o próprio banco lê
+revoke all on table public.crm_config from anon, authenticated;
 
 insert into public.crm_config (chave, valor) values
   ('email_destino', 'jvv.moraes05@gmail.com'),   -- vários e-mails: separe por vírgula (exige domínio verificado no Resend)

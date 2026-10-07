@@ -1,0 +1,19 @@
+# Cabeçalhos de segurança (Cloudflare Pages e Netlify leem este arquivo)
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Arquivos com hash no nome nunca mudam: cache longo.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# O Cloudflare Pages serve /crm.html também como /crm: as duas regras são necessárias.
+/crm
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
+/crm.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store

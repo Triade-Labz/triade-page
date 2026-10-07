@@ -23,13 +23,15 @@ drop policy if exists "equipe ve equipe" on public.equipe;
 create policy "equipe ve equipe" on public.equipe
   for select to authenticated using (public.is_equipe());
 
--- >>> TROQUE pelos e-mails e nomes reais dos sócios <<<
--- (os mesmos e-mails que vocês vão criar em Authentication → Users)
-insert into public.equipe (email, nome) values
-  ('socio1@exemplo.com', 'Sócio 1'),
-  ('socio2@exemplo.com', 'Sócio 2'),
-  ('socio3@exemplo.com', 'Sócio 3')
-on conflict (email) do update set nome = excluded.nome;
+-- >>> CADASTRE OS SÓCIOS <<<
+-- Os mesmos e-mails que vocês vão criar em Authentication → Users. Duas formas:
+--   a) no computador:  npm run db -- equipe add email@empresa.com "Nome"
+--   b) aqui no SQL Editor: troque os dados abaixo, tire os "--" e rode só este trecho.
+-- insert into public.equipe (email, nome) values
+--   ('socio1@empresa.com', 'Sócio 1'),
+--   ('socio2@empresa.com', 'Sócio 2'),
+--   ('socio3@empresa.com', 'Sócio 3')
+-- on conflict (email) do update set nome = excluded.nome;
 
 -- ---------------------------------------------------------------------
 -- 2) Leads: troca as regras da Parte 1 por regras baseadas na equipe
@@ -74,3 +76,13 @@ create policy "autor apaga nota"  on public.lead_notas for delete to authenticat
 do $$ begin
   alter publication supabase_realtime add table public.leads;
 exception when duplicate_object then null; end $$;
+
+-- ---------------------------------------------------------------------
+-- 5) Permissões da API (GRANT) para o painel. A RLS acima continua
+--    decidindo quais linhas cada um vê; o GRANT só libera o acesso à tabela.
+-- ---------------------------------------------------------------------
+revoke all on table public.equipe, public.lead_notas from anon;
+grant select on table public.equipe to authenticated;
+grant select, insert, delete on table public.lead_notas to authenticated;
+grant all on table public.equipe, public.lead_notas to service_role;
+grant execute on function public.is_equipe() to authenticated;

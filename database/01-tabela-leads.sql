@@ -56,3 +56,13 @@ create policy "equipe le leads" on public.leads
 drop policy if exists "equipe atualiza leads" on public.leads;
 create policy "equipe atualiza leads" on public.leads
   for update to authenticated using (true) with check (true);
+
+-- ---------------------------------------------------------------------
+-- Permissões da API (GRANT). Sem isto, projetos Supabase criados a partir
+-- de 30/05/2026 recusam o formulário com "permission denied" (42501).
+-- O site (anon) só insere, e só as colunas do formulário.
+-- ---------------------------------------------------------------------
+revoke all on table public.leads from anon;
+grant insert (nome, empresa, whatsapp, plano, consentimento_em, origem) on table public.leads to anon;
+grant select, insert, update, delete on table public.leads to authenticated;
+grant all on table public.leads to service_role;

@@ -1,0 +1,22 @@
+# Sistema
+.DS_Store
+Thumbs.db
+*.swp
+
+# Segredos: NUNCA versionar
+.env
+.env.*
+!.env.example
+*.local.sql
+segredos/
+secrets/
+
+# Dependências, builds e caches
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.vite/
+
+# Cópia antiga do repositório clonada dentro dele mesmo
+/triade-page/
