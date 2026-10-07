@@ -64,52 +64,42 @@ export const BENEFITS: { icon: BenefitIcon; title: string; text: string }[] = [
   { icon: "secure", title: "Seguro e rápido", text: "SSL, backups e infraestrutura de alto desempenho desde o primeiro dia." },
 ];
 
-export type PriceMode = "unico" | "mensal";
-
 export interface Plan {
   plano: Extract<Plano, "essencial" | "profissional" | "completo">;
   tier: string;
   title: string;
   desc: string;
-  price: Record<PriceMode, string>;
-  per: Record<PriceMode, string>;
-  note: Record<PriceMode, string>;
   inherits?: string;
   items: string[];
   cta: string;
   featured?: boolean;
 }
 
+/** Sem valores no site: cada projeto é negociado (veja a proposta comercial). */
 export const PLANS: Plan[] = [
   {
     plano: "essencial",
     tier: "Essencial",
     title: "Landing Page",
     desc: "Para apresentar sua empresa e começar a gerar contatos.",
-    price: { unico: "1.490", mensal: "149" },
-    per: { unico: "", mensal: "/mês" },
-    note: { unico: "Pagamento único · em até 3x sem juros", mensal: "12 parcelas · sem entrada" },
     items: [
-      "Uma landing page profissional e responsiva",
-      "Design personalizado com a identidade da empresa",
+      "Landing page profissional e responsiva",
       "Formulário de contato e integração com WhatsApp",
-      "SEO básico e hospedagem configurada",
+      "Hospedagem e ajustes simples",
+      "Até 2 rodadas de revisão",
     ],
     cta: "Começar agora",
   },
   {
     plano: "profissional",
     tier: "Profissional",
-    title: "Landing Page + Banco de Dados",
-    desc: "Para quem precisa captar, organizar e gerir dados de clientes.",
-    price: { unico: "3.490", mensal: "349" },
-    per: { unico: "", mensal: "/mês" },
-    note: { unico: "Pagamento único · em até 6x sem juros", mensal: "12 parcelas · sem entrada" },
+    title: "Landing Page + Aplicação e Infraestrutura",
+    desc: "Para quem precisa de um sistema com regras de negócio e dados próprios.",
     inherits: "Tudo do Essencial",
     items: [
-      "Banco de dados para cadastros, leads, produtos ou agendamentos",
-      "Painel administrativo para gerenciar os dados",
-      "Formulários dinâmicos e relatórios simples",
+      "Aplicação e infraestrutura: modelagem, regras de negócio e API",
+      "Login e integração com o seu sistema",
+      "Hospedagem e backups",
     ],
     cta: "Escolher Profissional",
     featured: true,
@@ -117,17 +107,14 @@ export const PLANS: Plan[] = [
   {
     plano: "completo",
     tier: "Completo",
-    title: "Site Completo + Suporte 24h",
-    desc: "Para empresas que querem presença digital completa e tranquilidade.",
-    price: { unico: "6.990", mensal: "690" },
-    per: { unico: "", mensal: "/mês" },
-    note: { unico: "Implantação · suporte 24h a partir de R$ 290/mês", mensal: "12 parcelas · suporte 24h incluso" },
+    title: "Design + Aplicação + Segurança",
+    desc: "Para empresas que querem o projeto completo e tranquilidade.",
     inherits: "Tudo do Profissional",
     items: [
-      "Site com múltiplas páginas (institucional, serviços, blog etc.)",
-      "Suporte técnico 24 horas, 7 dias por semana",
-      "Manutenção, atualizações e backups contínuos",
-      "Monitoramento de segurança e desempenho",
+      "Design: protótipo e identidade visual do projeto",
+      "Análise de vulnerabilidades semestral",
+      "Registro do software no INPI (na compra do projeto)",
+      "Suporte prioritário",
     ],
     cta: "Falar com consultor",
   },

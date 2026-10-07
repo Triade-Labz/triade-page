@@ -555,3 +555,4 @@ button,input,select{font:inherit;color:inherit}
 .field label.consent{letter-spacing:0;text-transform:none;font-weight:400;color:var(--text-muted);font-size:13px}
 a.project{color:inherit}
 .form-error-dev{display:block;margin-top:10px;padding:8px 10px;border-radius:10px;background:rgba(0,0,0,.25);font-family:var(--mono);font-size:11.5px;white-space:pre-wrap;word-break:break-word}
+.badge-delivery b{max-width:200px;line-height:1.3}

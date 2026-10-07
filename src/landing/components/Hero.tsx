@@ -35,7 +35,7 @@ export function Hero() {
           className="hero-visual"
           delay={2}
           role="img"
-          aria-label="Ilustração: site em construção em um navegador, com cards destacando painel de contatos e entrega em até 15 dias"
+          aria-label="Ilustração: site em construção em um navegador, com cards destacando painel de contatos e entrega da landing page personalizada em até 15 dias"
         >
           <div className="glass mock-browser">
             <div className="mock-bar" aria-hidden="true">
@@ -89,7 +89,7 @@ export function Hero() {
                 <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
             </span>
-            <b>Entrega em até 15 dias</b>
+            <b>Entrega em até 15 dias da sua landing page personalizada</b>
           </div>
 
           <div className="glass float-card speed" aria-hidden="true">

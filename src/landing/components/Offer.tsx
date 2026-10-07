@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import type { Plano } from "../../shared/leads";
 import { cx } from "../../shared/cx";
-import { BENEFITS, PLANS, type BenefitIcon, type PriceMode } from "../content";
-import { prefersReducedMotion } from "../hooks/useInView";
+import { BENEFITS, PLANS, type BenefitIcon } from "../content";
 import { IconCheck } from "./icons";
 import { Reveal } from "./Reveal";
 
@@ -51,66 +49,7 @@ function BenefitSvg({ icon }: { icon: BenefitIcon }) {
   }
 }
 
-/** Valor que some, troca e reaparece quando muda a forma de pagamento. */
-function PriceValue({ value }: { value: string }) {
-  const [shown, setShown] = useState(value);
-  // Enquanto o número antigo está na tela, ele fica "saindo" (classe swap).
-  const swapping = shown !== value;
-
-  useEffect(() => {
-    if (!swapping) return;
-    const t = setTimeout(() => setShown(value), prefersReducedMotion() ? 0 : 200);
-    return () => clearTimeout(t);
-  }, [swapping, value]);
-
-  return <span className={cx("val", swapping && "swap")}>{shown}</span>;
-}
-
-const MODES: { mode: PriceMode; label: string; badge?: string }[] = [
-  { mode: "unico", label: "Pagamento único" },
-  { mode: "mensal", label: "Mensal", badge: "12x" },
-];
-
-function PriceToggle({ mode, onChange }: { mode: PriceMode; onChange: (m: PriceMode) => void }) {
-  const btns = useRef<Partial<Record<PriceMode, HTMLButtonElement | null>>>({});
-  const [thumb, setThumb] = useState<CSSProperties>({});
-
-  const place = useCallback(() => {
-    const b = btns.current[mode];
-    if (b) setThumb({ width: b.offsetWidth, transform: `translateX(${b.offsetLeft - 5}px)` });
-  }, [mode]);
-
-  useLayoutEffect(place, [place]);
-  useEffect(() => {
-    window.addEventListener("resize", place);
-    // A largura dos botões muda quando a fonte termina de carregar.
-    void document.fonts?.ready.then(place);
-    return () => window.removeEventListener("resize", place);
-  }, [place]);
-
-  return (
-    <div className="toggle" role="group" aria-label="Forma de pagamento">
-      <span className="thumb" aria-hidden="true" style={thumb} />
-      {MODES.map((m) => (
-        <button
-          key={m.mode}
-          type="button"
-          ref={(el) => {
-            btns.current[m.mode] = el;
-          }}
-          aria-pressed={mode === m.mode}
-          onClick={() => onChange(m.mode)}
-        >
-          {m.label} {m.badge && <small>{m.badge}</small>}
-        </button>
-      ))}
-    </div>
-  );
-}
-
 export function Offer({ onChoosePlan }: { onChoosePlan: (p: Plano) => void }) {
-  const [mode, setMode] = useState<PriceMode>("unico");
-
   return (
     <section className="shell offer curve-a" aria-labelledby="beneficios-title">
       <div className="blob blob-3" aria-hidden="true" />
@@ -149,13 +88,10 @@ export function Offer({ onChoosePlan }: { onChoosePlan: (p: Plano) => void }) {
             Escolha o ponto de <em>partida.</em>
           </Reveal>
           <Reveal as="p" className="lead" delay={2}>
-            Três formatos claros, sem letras miúdas. Você pode evoluir de plano quando quiser.
+            Três pontos de partida. Cada projeto é orçado sob medida: fale com a gente para consultar disponibilidade.
           </Reveal>
         </div>
 
-        <Reveal className="toggle-wrap">
-          <PriceToggle mode={mode} onChange={setMode} />
-        </Reveal>
 
         <div className="plans">
           {PLANS.map((p, i) => (
@@ -165,11 +101,9 @@ export function Offer({ onChoosePlan }: { onChoosePlan: (p: Plano) => void }) {
               <h3 id={`plan-${p.plano}`}>{p.title}</h3>
               <p className="desc">{p.desc}</p>
               <div className="price">
-                <span className="cur">R$</span>
-                <PriceValue value={p.price[mode]} />
-                <span className="per">{p.per[mode]}</span>
+                <span className="val" aria-label="Valor sob consulta">—</span>
               </div>
-              <p className="price-note">{p.note[mode]}</p>
+              <p className="price-note">Consultar disponibilidade</p>
               <ul>
                 {p.inherits && (
                   <li className="inherit">

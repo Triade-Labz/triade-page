@@ -18,8 +18,8 @@ export interface PlanoInfo {
 
 export const PLANO_INFO: Record<Plano, PlanoInfo> = {
   essencial: { id: "essencial", rotulo: "Essencial — Landing Page", curto: "Site · Essencial", grupo: "Sites e sistemas" },
-  profissional: { id: "profissional", rotulo: "Profissional — Landing Page + Banco de Dados", curto: "Site · Profissional", grupo: "Sites e sistemas" },
-  completo: { id: "completo", rotulo: "Completo — Site + Suporte 24h", curto: "Site · Completo", grupo: "Sites e sistemas" },
+  profissional: { id: "profissional", rotulo: "Profissional — Landing Page + Aplicação e Infraestrutura", curto: "Site · Profissional", grupo: "Sites e sistemas" },
+  completo: { id: "completo", rotulo: "Completo — Design + Aplicação + Segurança", curto: "Site · Completo", grupo: "Sites e sistemas" },
   suporte: { id: "suporte", rotulo: "Suporte em TI para minha empresa", curto: "Suporte em TI", grupo: "Outros serviços" },
   seguranca: { id: "seguranca", rotulo: "Pentest / teste de segurança", curto: "Pentest", grupo: "Outros serviços" },
   duvida: { id: "duvida", rotulo: "Ainda não sei, quero orientação", curto: "Quer orientação", grupo: "Outros serviços" },
