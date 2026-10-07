@@ -23,7 +23,11 @@ Em seguida faça os passos 5, 6 e 7 abaixo. **Pelo SQL Editor:**
 4. Rode `database/04-permissoes-site-crm.sql`.
    **Projeto que já estava funcionando "pela metade"** (formulário dando erro ou CRM vazio): rode só este arquivo, é a correção.
 5. Em **Authentication → Sign In / Providers**, desative **Allow new users to sign up**.
-6. Em **Authentication → Users → Add user**, crie um usuário para cada sócio (mesmo e-mail do passo 3), com senha.
+6. Em **Authentication → Users → Add user → Create new user**, crie um usuário para cada sócio (mesmo e-mail do passo 3)
+   com uma **senha provisória** e marque **Auto Confirm User**. Passe a senha a cada um por um canal privado: no primeiro
+   acesso, ele clica no ícone de chave no topo do CRM (**Trocar senha**) e define uma senha que só ele conhece.
+   Obs.: sem um SMTP próprio configurado, o e-mail padrão do Supabase só entrega para membros da organização no Supabase,
+   então o "Esqueci minha senha" pode não chegar para os outros sócios — o botão **Trocar senha** não depende de e-mail.
 7. Em **Project Settings → API**, copie a **URL** e a chave **publishable** (ou a antiga **anon**).
 
 ## 1b. Aviso por e-mail (Resend, gratuito)

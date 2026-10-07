@@ -53,6 +53,8 @@ export default defineConfig(({ mode }) => ({
     setupFiles: ["./src/test/setup.ts"],
     include: ["src/**/*.test.{ts,tsx}", "database/tests/**/*.test.ts"],
     testTimeout: 20000,
+    // Subir o Postgres em memória (testes de database/) pode levar >10 s com os outros testes rodando juntos.
+    hookTimeout: 60000,
     // Testes nunca falam com o Supabase de verdade, mesmo com o .env preenchido.
     env: { VITE_SUPABASE_URL: "", VITE_SUPABASE_PUBLISHABLE_KEY: "", VITE_SUPABASE_ANON_KEY: "", DATABASE_URL: "" },
   },

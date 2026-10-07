@@ -9,7 +9,7 @@ import { useLeads } from "../hooks/useLeads";
 import { useNow } from "../hooks/useNow";
 import { Board } from "./Board";
 import { Brand } from "./Brand";
-import { IconBell, IconOut } from "./icons";
+import { IconBell, IconKey, IconOut } from "./icons";
 import { LeadDrawer } from "./LeadDrawer";
 import { LeadList } from "./LeadList";
 import { Metrics } from "./Metrics";
@@ -23,6 +23,7 @@ interface Props {
   equipe: Membro[];
   initialLeads: Lead[];
   onLogout: () => void;
+  onChangePassword: () => void;
 }
 
 function download(name: string, content: string, type: string) {
@@ -35,7 +36,7 @@ function download(name: string, content: string, type: string) {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
-export function Dashboard({ api, me, equipe, initialLeads, onLogout }: Props) {
+export function Dashboard({ api, me, equipe, initialLeads, onLogout, onChangePassword }: Props) {
   const toast = useToast();
   const now = useNow();
   const hoje = ymd(new Date(now));
@@ -130,6 +131,9 @@ export function Dashboard({ api, me, equipe, initialLeads, onLogout }: Props) {
           <span className="av">{initials(me.nome)}</span>
           <span className="name">{me.nome}</span>
         </div>
+        <button className="icon-btn" type="button" title="Trocar senha" aria-label="Trocar minha senha" onClick={onChangePassword}>
+          <IconKey />
+        </button>
         <button className="icon-btn" type="button" title="Sair" aria-label="Sair" onClick={logout}>
           <IconOut />
         </button>

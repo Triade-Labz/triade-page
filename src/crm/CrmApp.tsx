@@ -7,7 +7,7 @@ import type { CrmApi, Membro } from "./api/types";
 import { Brand } from "./components/Brand";
 import { Dashboard } from "./components/Dashboard";
 import { LoginScreen } from "./components/LoginScreen";
-import { PasswordDialog } from "./components/PasswordDialog";
+import { PasswordDialog, type PasswordMode } from "./components/PasswordDialog";
 import { ToastProvider } from "./components/Toasts";
 import { useToast } from "./components/toastContext";
 import { errMsg } from "./lib/errors";
@@ -42,7 +42,7 @@ function ConfigError({ message }: { message: string }) {
 function Crm({ api }: { api: CrmApi }) {
   const toast = useToast();
   const [phase, setPhase] = useState<Phase>({ tipo: "carregando" });
-  const [recovering, setRecovering] = useState(false);
+  const [passwordMode, setPasswordMode] = useState<PasswordMode | null>(null);
 
   /** Carrega equipe e leads e confere se o e-mail logado faz parte da equipe. */
   const loadFor = useCallback(
@@ -61,7 +61,7 @@ function Crm({ api }: { api: CrmApi }) {
 
   useEffect(() => {
     const off = api.onAuth((ev) => {
-      if (ev === "PASSWORD_RECOVERY") setRecovering(true);
+      if (ev === "PASSWORD_RECOVERY") setPasswordMode("recuperar");
       if (ev === "SIGNED_OUT") setPhase((p) => (p.tipo === "painel" ? { tipo: "login" } : p));
     });
     let alive = true;
@@ -97,13 +97,20 @@ function Crm({ api }: { api: CrmApi }) {
         />
       )}
       {phase.tipo === "painel" && (
-        <Dashboard api={api} me={phase.me} equipe={phase.equipe} initialLeads={phase.leads} onLogout={() => setPhase({ tipo: "login" })} />
+        <Dashboard
+          api={api}
+          me={phase.me}
+          equipe={phase.equipe}
+          initialLeads={phase.leads}
+          onLogout={() => setPhase({ tipo: "login" })}
+          onChangePassword={() => setPasswordMode("trocar")}
+        />
       )}
       <PasswordDialog
         api={api}
-        open={recovering}
+        mode={passwordMode}
         onDone={(ok) => {
-          setRecovering(false);
+          setPasswordMode(null);
           if (ok) toast("Senha atualizada");
         }}
       />

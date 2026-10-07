@@ -36,4 +36,21 @@ describe("CRM em modo demonstração", () => {
     });
     expect(gaveta).toHaveAttribute("aria-hidden", "true");
   });
+
+  it("permite trocar a senha provisória pelo botão do topo", async () => {
+    const user = userEvent.setup();
+    render(<CrmApp />);
+    await user.click(await screen.findByRole("button", { name: "Trocar minha senha" }));
+
+    const dialogo = screen.getByRole("dialog", { name: "Trocar minha senha" });
+    await user.type(within(dialogo).getByLabelText(/Nova senha/), "senha-forte-1");
+    await user.type(within(dialogo).getByLabelText("Repita a nova senha"), "senha-forte-2");
+    await user.click(within(dialogo).getByRole("button", { name: "Salvar senha" }));
+    expect(within(dialogo).getByRole("alert")).toHaveTextContent("não são iguais");
+
+    await user.clear(within(dialogo).getByLabelText("Repita a nova senha"));
+    await user.type(within(dialogo).getByLabelText("Repita a nova senha"), "senha-forte-1");
+    await user.click(within(dialogo).getByRole("button", { name: "Salvar senha" }));
+    expect(await screen.findByText("Senha atualizada")).toBeInTheDocument();
+  });
 });

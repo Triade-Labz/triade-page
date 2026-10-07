@@ -44,3 +44,8 @@ export const IconOut = (p: P) => (
     <path {...stroke} d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10" />
   </svg>
 );
+export const IconKey = (p: P) => (
+  <svg {...base} {...p}>
+    <path {...stroke} d="M14.5 9.5a4 4 0 1 1-1.4-3.05M14.5 9.5 21 16v3h-3v-2h-2v-2h-2l-1.2-1.2" />
+  </svg>
+);
