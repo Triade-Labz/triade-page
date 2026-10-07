@@ -31,24 +31,22 @@ function avisoDeConfiguracao(mode: string): Plugin {
   };
 }
 
-export default defineConfig(({ mode, isSsrBuild }) => ({
+export default defineConfig(({ mode }) => ({
   plugins: [react(), avisoDeConfiguracao(mode)],
-  build: isSsrBuild
-    ? { emptyOutDir: true }
-    : {
-        rolldownOptions: {
-          // Três páginas independentes: o site não carrega o código do CRM e vice-versa.
-          input: {
-            site: resolve(root, "index.html"),
-            privacidade: resolve(root, "politica-de-privacidade.html"),
-            crm: resolve(root, "crm.html"),
-          },
-          // O React vira um arquivo próprio, em cache entre as três páginas.
-          output: {
-            codeSplitting: { groups: [{ name: "react", test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/ }] },
-          },
-        },
+  build: {
+    rolldownOptions: {
+      // Três páginas independentes: o site não carrega o código do CRM e vice-versa.
+      input: {
+        site: resolve(root, "index.html"),
+        privacidade: resolve(root, "politica-de-privacidade.html"),
+        crm: resolve(root, "crm.html"),
       },
+      // O React vira um arquivo próprio, em cache entre as três páginas.
+      output: {
+        codeSplitting: { groups: [{ name: "react", test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/ }] },
+      },
+    },
+  },
   test: {
     environment: "jsdom",
     globals: true,

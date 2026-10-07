@@ -40,8 +40,8 @@ src/
   crm/                          painel: login, funil, lista, gaveta do lead, tempo real
   privacy/                      política de privacidade
   shared/                       tipos do lead, telefone, validação, configuração
-  prerender.tsx                 gera o HTML do site e da política no build (SEO)
-public/                         _headers (segurança), favicon, símbolo da marca
+public/                         favicon, símbolo da marca
+vercel.json                     build e cabeçalhos de segurança na Vercel
 database/                       SQLs do Supabase, rodar nesta ordem
   01-tabela-leads.sql
   02-painel-equipe.sql
@@ -56,7 +56,7 @@ docs/
 
 ## Rodar localmente
 
-Requer Node 20.19+ (recomendado 22, veja `.nvmrc`).
+Requer Node 20.19+ (recomendado 22).
 
 ```bash
 npm install
@@ -90,7 +90,7 @@ Com `DATABASE_URL` no `.env` (conexão direta do Supabase; só fica no seu compu
 | comando | o que faz |
 | --- | --- |
 | `npm run dev` | servidor de desenvolvimento |
-| `npm run build` | checa tipos, gera `dist/` e pré-renderiza site e política |
+| `npm run build` | checa tipos e gera `dist/` |
 | `npm run preview` | serve o `dist/` gerado |
 | `npm test` | testes (front-end + SQLs do banco) |
 | `npm run check` | tipos + lint + testes |
@@ -104,18 +104,18 @@ Com `DATABASE_URL` no `.env` (conexão direta do Supabase; só fica no seu compu
   Campo vazio não aparece no site.
 - **Textos da landing** (planos, FAQ, portfólio…): `src/landing/content.ts`.
 
-## Publicar (Cloudflare Pages, deploy automático)
+## Publicar (Vercel, deploy automático)
 
-**Workers & Pages → Create → Pages → Connect to Git**, escolha este repositório e configure:
+Em vercel.com: **Add New → Project → Import** este repositório (`Triade-Labz/triade-page`).
+Framework, comando de build e pasta de saída já vêm do `vercel.json`; só cadastre em
+**Environment Variables** (Production e Preview):
 
-- Framework preset: **Vite** (ou None)
-- Build command: **`npm run build`**
-- Build output directory: **`dist`**
-- Environment variables (Production **e** Preview): `VITE_SUPABASE_URL`,
-  `VITE_SUPABASE_PUBLISHABLE_KEY` e `NODE_VERSION` = `22`
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
 
-A partir daí, cada `git push` na branch principal publica o site sozinho.
-O CRM fica em `/crm.html` (o Cloudflare também atende em `/crm`).
+e clique em **Deploy**. A partir daí, cada `git push` na `main` publica o site sozinho.
+Mudou uma variável? Faça um **Redeploy**: elas entram no build.
+O CRM fica em `/crm.html`.
 
 ## ⚠️ Segurança: o que NUNCA subir para o GitHub
 

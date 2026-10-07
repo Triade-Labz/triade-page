@@ -317,7 +317,7 @@ export function PrivacyPolicy() {
       </main>
 
       <footer>
-        © <span suppressHydrationWarning>{new Date().getFullYear()}</span> Tríade Labs · <a href="index.html">Voltar ao site</a>
+        © {new Date().getFullYear()} Tríade Labs · <a href="index.html">Voltar ao site</a>
       </footer>
     </>
   );

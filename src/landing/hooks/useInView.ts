@@ -44,7 +44,6 @@ interface InViewOptions {
 /**
  * true quando o elemento entra na tela (e continua true depois disso).
  * Sem IntersectionObserver ou com "reduzir movimento", aparece logo após montar.
- * Começa sempre false para o HTML pré-renderizado bater com o do navegador.
  */
 export function useInView<T extends Element>({ threshold = 0, rootMargin = "0px" }: InViewOptions = {}): [RefObject<T | null>, boolean] {
   const ref = useRef<T>(null);

@@ -83,7 +83,7 @@ export function Footer() {
           </div>
         </div>
         <div className="foot-bottom">
-          <span suppressHydrationWarning>© {new Date().getFullYear()} Tríade Labs. Todos os direitos reservados.</span>
+          <span>© {new Date().getFullYear()} Tríade Labs. Todos os direitos reservados.</span>
           <span>
             {SITE.cnpj && <>CNPJ {SITE.cnpj} · </>}
             <a href="politica-de-privacidade.html">Política de privacidade</a>

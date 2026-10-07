@@ -37,7 +37,7 @@ revoke all on table public.crm_config from anon, authenticated;
 insert into public.crm_config (chave, valor) values
   ('email_destino', 'jvv.moraes05@gmail.com'),   -- vários e-mails: separe por vírgula (exige domínio verificado no Resend)
   ('email_remetente', 'CRM Tríade Labs <onboarding@resend.dev>'),
-  ('crm_url', '')                                -- ex.: https://triadelabs.pages.dev/crm.html (vira um botão no e-mail)
+  ('crm_url', '')                                -- ex.: https://triade-page.vercel.app/crm.html (vira um botão no e-mail)
 on conflict (chave) do nothing;
 
 -- Para trocar o e-mail depois, rode só isto:

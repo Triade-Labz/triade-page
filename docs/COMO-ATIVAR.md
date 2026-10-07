@@ -10,6 +10,7 @@
 - `database/extra-atualizacao-servicos.sql` — só se a Parte 1 tiver sido rodada antes dos serviços novos.
 - `src/landing/assets/portfolio/` — prints do portfólio usados no site (`docs/portfolio-prints/` guarda os originais).
 - `public/triade-simbolo.svg` — símbolo da marca.
+- `vercel.json` — configuração de publicação e cabeçalhos de segurança na Vercel.
 
 ## 1. Banco de dados (Supabase, gratuito)
 **Pelo terminal (recomendado):** com `DATABASE_URL` no `.env`, rode `npm run db -- migrate`, depois
@@ -40,15 +41,14 @@ A URL e a chave do Supabase ficam em **um lugar só**, usado pelo site e pelo CR
 
 WhatsApp, e-mail, CNPJ e redes da empresa ficam em `src/shared/siteConfig.ts`. Campo vazio não aparece no site.
 
-## 3. Publicar (Cloudflare Pages, gratuito)
-1. **Workers & Pages → Create → Pages → Connect to Git** e escolha o repositório.
-2. Build command: `npm run build` · Build output directory: `dist`.
-3. Em **Settings → Environment variables**, para Production e Preview:
-   `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` e `NODE_VERSION` = `22`.
-4. Depois de mudar variáveis, faça um novo deploy (**Deployments → Retry deployment**): elas entram no build.
-5. Em Supabase → **Authentication → URL Configuration**, coloque o endereço do site em **Site URL** e o endereço
-   do CRM (`https://SEU-ENDERECO/crm.html` e `https://SEU-ENDERECO/crm`) em **Redirect URLs**
-   (necessário para o "Esqueci minha senha" funcionar).
+## 3. Publicar (Vercel, gratuito)
+1. Em vercel.com, **Add New → Project → Import** o repositório `Triade-Labz/triade-page`.
+   Framework, build e pasta de saída já vêm configurados pelo `vercel.json`.
+2. Em **Environment Variables**, para Production e Preview: `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY`.
+   Clique em **Deploy**.
+3. Depois de mudar variáveis, faça um novo deploy (**Deployments → ⋯ → Redeploy**): elas entram no build.
+4. Em Supabase → **Authentication → URL Configuration**, coloque o endereço do site em **Site URL** e o endereço
+   do CRM (`https://SEU-ENDERECO/crm.html`) em **Redirect URLs** (necessário para o "Esqueci minha senha" funcionar).
 
 ## 4. Testar
 Envie um pedido pelo formulário do site: ele aparece na coluna **Novo** do CRM em tempo real e o e-mail chega em segundos
