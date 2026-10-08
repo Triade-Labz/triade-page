@@ -1,6 +1,7 @@
-import { PLANO_INFO, type Lead, type LeadStatus, type Plano } from "../../shared/leads";
+import { planoCurto, type Lead, type LeadStatus, type Plano } from "../../shared/leads";
+import { membroNome } from "../../painel/lib/equipe";
 import { formatBrPhone } from "../../shared/phone";
-import { dataHora, norm, today } from "./format";
+import { dataHora, norm, today } from "../../painel/lib/format";
 import type { Membro } from "../api/types";
 
 export const STATUS: { id: LeadStatus; nome: string; vazio: string }[] = [
@@ -13,9 +14,8 @@ export const STATUS: { id: LeadStatus; nome: string; vazio: string }[] = [
 
 export const STATUS_NOME = Object.fromEntries(STATUS.map((s) => [s.id, s.nome])) as Record<LeadStatus, string>;
 
-export function planoCurto(p: Plano | string): string {
-  return p in PLANO_INFO ? PLANO_INFO[p as Plano].curto : p;
-}
+export { planoCurto } from "../../shared/leads";
+export { membroNome } from "../../painel/lib/equipe";
 
 export interface Filtros {
   q: string;
@@ -94,11 +94,6 @@ export function describeOrigem(l: Lead): string {
   if (o.fbclid) partes.push("Facebook/Instagram");
   if (!partes.length) partes.push(o.referrer ? `veio de ${o.referrer}` : "acesso direto ao site");
   return partes.join(" · ");
-}
-
-export function membroNome(equipe: Membro[], email: string | null | undefined): string {
-  if (!email) return "";
-  return equipe.find((e) => e.email === email)?.nome ?? email;
 }
 
 const BOM = String.fromCharCode(0xfeff);

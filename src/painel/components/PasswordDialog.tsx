@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import type { CrmApi } from "../api/types";
+import type { AuthApi } from "../api/auth";
 import { errMsg } from "../lib/errors";
 import { Dialog } from "./Dialog";
 
@@ -11,7 +11,7 @@ const TEXTOS: Record<PasswordMode, { titulo: string; sub: string }> = {
 };
 
 /** Nova senha: pelo link de "Esqueci minha senha" ou pelo botão "Trocar senha" do painel. */
-export function PasswordDialog({ api, mode, onDone }: { api: CrmApi; mode: PasswordMode | null; onDone: (ok: boolean) => void }) {
+export function PasswordDialog({ api, mode, onDone }: { api: AuthApi; mode: PasswordMode | null; onDone: (ok: boolean) => void }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");

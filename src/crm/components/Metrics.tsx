@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { cx } from "../../shared/cx";
-import { brl } from "../lib/format";
+import { brl } from "../../painel/lib/format";
 import type { Metricas } from "../lib/leads";
 
 function Metric({ k, v, d, alert }: { k: string; v: ReactNode; d: string; alert?: boolean }) {

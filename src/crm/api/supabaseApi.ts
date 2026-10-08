@@ -1,82 +1,19 @@
-import { createClient, type RealtimePostgresChangesPayload } from "@supabase/supabase-js";
+import type { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 import type { Lead } from "../../shared/leads";
 import type { SupabaseConfig } from "../../shared/supabaseConfig";
-import type { Database } from "./database.types";
-import type { AuthEvent, CrmApi, LeadChange } from "./types";
-
-const PAGE = 1000; // limite padrão de linhas por consulta no Supabase
-
-/** Resultado de consulta: lança o erro do Supabase ou devolve os dados (nunca null sem erro). */
-function check<T>(r: { data: T | null; error: unknown }): T {
-  if (r.error) throw r.error;
-  if (r.data === null) throw new Error("O banco não devolveu dados (verifique as permissões de leitura).");
-  return r.data;
-}
-
-/** Para chamadas em que só importa se deu erro. */
-function ok(r: { error: unknown }): void {
-  if (r.error) throw r.error;
-}
+import { check, createPainelClient, fetchAll, ok, supabaseAuth } from "../../painel/api/supabase";
+import type { CrmApi, LeadChange } from "./types";
 
 export function createSupabaseApi(cfg: SupabaseConfig): CrmApi {
-  const sb = createClient<Database>(cfg.url, cfg.key, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
-  });
+  const sb = createPainelClient(cfg);
 
   return {
     demo: false,
+    ...supabaseAuth(sb),
 
-    async sessionEmail() {
-      const { data, error } = await sb.auth.getSession();
-      if (error) throw error;
-      return data.session?.user.email ?? null;
-    },
-
-    onAuth(cb) {
-      const { data } = sb.auth.onAuthStateChange((ev) => {
-        const mapped: AuthEvent = ev === "SIGNED_IN" || ev === "SIGNED_OUT" || ev === "PASSWORD_RECOVERY" ? ev : "OTHER";
-        cb(mapped);
-      });
-      return () => data.subscription.unsubscribe();
-    },
-
-    async signIn(email, password) {
-      ok(await sb.auth.signInWithPassword({ email, password }));
-    },
-
-    async resetPassword(email) {
-      // Volta para esta mesma página (crm.html ou /crm), sem o #token antigo.
-      ok(await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname }));
-    },
-
-    async setPassword(password) {
-      ok(await sb.auth.updateUser({ password }));
-    },
-
-    async signOut() {
-      await sb.removeAllChannels();
-      await sb.auth.signOut();
-    },
-
-    async equipe() {
-      return check(await sb.from("equipe").select("email,nome").order("nome"));
-    },
-
-    async leads() {
-      // Busca em páginas: o Supabase corta em 1000 linhas por consulta, e antes os leads mais antigos sumiam.
-      const all: Lead[] = [];
-      for (let from = 0; ; from += PAGE) {
-        const page = check(
-          await sb
-            .from("leads")
-            .select("*")
-            .order("created_at", { ascending: false })
-            .order("id")
-            .range(from, from + PAGE - 1),
-        );
-        all.push(...page);
-        if (page.length < PAGE || all.length >= 20000) return all;
-      }
+    leads() {
+      // Busca em páginas: antes os leads mais antigos que o limite de 1000 sumiam.
+      return fetchAll((from, to) => sb.from("leads").select("*").order("created_at", { ascending: false }).order("id").range(from, to));
     },
 
     async update(id, patch) {

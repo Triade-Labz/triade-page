@@ -1,6 +1,6 @@
 import type { Lead } from "../../shared/leads";
-import { errMsg } from "./errors";
-import { parseValor } from "./format";
+import { errMsg } from "../../painel/lib/errors";
+import { parseValor } from "../../painel/lib/format";
 import { buildCsv, computeMetrics, describeOrigem, filterLeads, followUp } from "./leads";
 
 const base: Lead = {

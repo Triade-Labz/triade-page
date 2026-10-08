@@ -1,10 +1,10 @@
 import { useState, type FormEvent } from "react";
-import type { CrmApi } from "../api/types";
+import type { AuthApi } from "../api/auth";
 import { errMsg } from "../lib/errors";
 import { Brand } from "./Brand";
 
 interface Props {
-  api: CrmApi;
+  api: AuthApi;
   /** Mensagem vinda de fora (ex.: e-mail fora da equipe, erro de conexão). */
   initialError?: string | undefined;
   onSignedIn: (email: string) => Promise<void>;

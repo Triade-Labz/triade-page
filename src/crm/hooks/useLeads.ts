@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Lead, LeadInsertEquipe, LeadStatus, LeadUpdate } from "../../shared/leads";
 import type { CrmApi, LeadChange, Membro, RealtimeState } from "../api/types";
-import { errMsg } from "../lib/errors";
+import { errMsg } from "../../painel/lib/errors";
 import { STATUS_NOME, planoCurto } from "../lib/leads";
-import { useToast } from "../components/toastContext";
+import { useToast } from "../../painel/components/toastContext";
 
 const POLL_MS = 30_000;
 
@@ -142,7 +142,11 @@ export function useLeads(api: CrmApi, initial: Lead[], me: Membro) {
       } catch (e) {
         console.warn("[CRM] histórico de etapa não registrado:", e);
       }
-      if (to === "fechado" && !row.valor) toast("Fechado! Informe o valor do contrato para acompanhar o faturamento.");
+      // O banco cria o projeto sozinho (database/05-projetos.sql).
+      if (to === "fechado") {
+        toast(api.demo ? "Fechado! No sistema real, o projeto é criado sozinho no controle de projetos." : "Fechado! O projeto já está no controle de projetos.");
+        if (!row.valor) toast("Informe o valor do contrato para acompanhar o faturamento.");
+      }
       return true;
     },
     [api, patch, markSeen, toast],

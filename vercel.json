@@ -60,6 +60,42 @@
           "value": "no-store"
         }
       ]
+    },
+    {
+      "source": "/desenvolvimento-projetos.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/desenvolvimento-projetos",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/desenvolvimento-projetos",
+      "destination": "/desenvolvimento-projetos.html"
+    },
+    {
+      "source": "/crm",
+      "destination": "/crm.html"
     }
   ]
 }

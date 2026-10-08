@@ -3,8 +3,8 @@ import { LIMITES, PLANOS, PLANO_INFO, isPlano, type Lead, type LeadInsertEquipe,
 import { formatBrPhone, isValidBrPhone, normalizeBrPhone } from "../../shared/phone";
 import { cleanText } from "../../shared/validation";
 import type { Membro } from "../api/types";
-import { errMsg } from "../lib/errors";
-import { Dialog } from "./Dialog";
+import { errMsg } from "../../painel/lib/errors";
+import { Dialog } from "../../painel/components/Dialog";
 
 const CANAIS = ["Indicação", "Instagram", "WhatsApp", "LinkedIn", "Evento", "Outro"];
 

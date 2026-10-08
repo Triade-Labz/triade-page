@@ -6,26 +6,9 @@
  *
  * Garante o caminho completo: formulário do site (anon) grava → equipe (CRM) lê.
  */
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import { PGlite } from "@electric-sql/pglite";
+import type { PGlite } from "@electric-sql/pglite";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-
-const dir = join(import.meta.dirname, "..");
-const sql = (file: string) => readFileSync(join(dir, file), "utf8");
-
-const SUPABASE_STUB = `
-  create role anon nologin;
-  create role authenticated nologin;
-  create role service_role nologin bypassrls;
-  create schema auth;
-  create function auth.jwt() returns jsonb language sql stable as $$
-    select coalesce(nullif(current_setting('request.jwt.claims', true), ''), '{}')::jsonb
-  $$;
-  grant usage on schema auth to anon, authenticated, service_role;
-  grant execute on function auth.jwt() to anon, authenticated, service_role;
-  create publication supabase_realtime;
-`;
+import { as as asRole, errorCode, novoBanco, sql } from "./pglite";
 
 const LEAD_DO_SITE = `
   insert into public.leads (nome, empresa, whatsapp, plano, consentimento_em, origem)
@@ -33,29 +16,10 @@ const LEAD_DO_SITE = `
 `;
 
 let db: PGlite;
-
-async function as<T>(role: "anon" | "authenticated", email: string | null, fn: () => Promise<T>): Promise<T> {
-  await db.query(`select set_config('request.jwt.claims', $1, false)`, [email ? JSON.stringify({ email, role }) : "{}"]);
-  await db.exec(`set role ${role}`);
-  try {
-    return await fn();
-  } finally {
-    await db.exec("reset role");
-  }
-}
-
-async function errorCode(p: Promise<unknown>): Promise<string | undefined> {
-  try {
-    await p;
-    return undefined;
-  } catch (e) {
-    return (e as { code?: string }).code;
-  }
-}
+const as = <T,>(role: "anon" | "authenticated", email: string | null, fn: () => Promise<T>) => asRole(db, role, email, fn);
 
 beforeAll(async () => {
-  db = new PGlite();
-  await db.exec(SUPABASE_STUB);
+  db = await novoBanco();
   await db.exec(sql("01-tabela-leads.sql"));
   await db.exec(sql("02-painel-equipe.sql"));
   await db.exec(sql("04-permissoes-site-crm.sql"));

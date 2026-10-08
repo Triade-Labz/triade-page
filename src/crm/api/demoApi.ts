@@ -1,6 +1,7 @@
 import type { Lead, LeadOrigem, LeadStatus, Plano } from "../../shared/leads";
-import { ymd } from "../lib/format";
-import type { CrmApi, LeadChange, Membro, Nota } from "./types";
+import { DEMO_EU, demoAuth, later } from "../../painel/api/demo";
+import { ymd } from "../../painel/lib/format";
+import type { CrmApi, LeadChange, Nota } from "./types";
 
 /** Versão em memória do banco, para desenvolver e demonstrar o CRM sem Supabase. Nada é salvo. */
 export interface DemoApi extends CrmApi {
@@ -14,12 +15,6 @@ export function createDemoApi(): DemoApi {
   const uid = () => `demo-${++seq}`;
   const horas = (n: number) => new Date(Date.now() - n * 3600e3).toISOString();
   const dias = (n: number) => ymd(new Date(Date.now() + n * 864e5));
-
-  const equipe: Membro[] = [
-    { email: "socio1@exemplo.com", nome: "Sócio 1" },
-    { email: "socio2@exemplo.com", nome: "Sócio 2" },
-    { email: "socio3@exemplo.com", nome: "Sócio 3" },
-  ];
 
   const L = (nome: string, empresa: string, whatsapp: string, plano: Plano, status: LeadStatus, h: number, extra: Partial<Lead> = {}): Lead => ({
     id: uid(),
@@ -53,7 +48,6 @@ export function createDemoApi(): DemoApi {
     { id: uid(), lead_id: juliana, created_at: horas(27), autor: "socio1@exemplo.com", tipo: "nota", texto: "Quer agendamento online. Pedi exemplos de sites que ela gosta." },
   ];
 
-  const later = <T,>(v: T): Promise<T> => new Promise((r) => setTimeout(() => r(structuredClone(v)), 120));
   const find = (id: string) => {
     const l = leads.find((x) => x.id === id);
     if (!l) throw new Error("Lead não encontrado");
@@ -61,15 +55,7 @@ export function createDemoApi(): DemoApi {
   };
 
   return {
-    demo: true,
-    sessionEmail: () => later(equipe[0]?.email ?? null),
-    onAuth: () => () => {},
-    signIn: () => later(undefined),
-    resetPassword: () => later(undefined),
-    setPassword: () => later(undefined),
-    signOut: () => later(undefined),
-
-    equipe: () => later(equipe),
+    ...demoAuth(),
     leads: () => later(leads),
     update: async (id, patch) => {
       const l = find(id);
@@ -90,7 +76,7 @@ export function createDemoApi(): DemoApi {
 
     notas: (leadId) => later(notas.filter((n) => n.lead_id === leadId).sort((a, b) => b.created_at.localeCompare(a.created_at))),
     addNota: async (leadId, texto, tipo) => {
-      const n: Nota = { id: uid(), lead_id: leadId, texto, tipo, autor: "socio1@exemplo.com", created_at: new Date().toISOString() };
+      const n: Nota = { id: uid(), lead_id: leadId, texto, tipo, autor: DEMO_EU, created_at: new Date().toISOString() };
       notas.push(n);
       return later(n);
     },

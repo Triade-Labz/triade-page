@@ -1,7 +1,7 @@
 import { PLANOS, PLANO_INFO, isPlano } from "../../shared/leads";
 import type { Membro } from "../api/types";
 import type { Filtros } from "../lib/leads";
-import { IconDown, IconPlus, IconSearch } from "./icons";
+import { IconDown, IconPlus, IconSearch } from "../../painel/components/icons";
 
 export type View = "board" | "list";
 

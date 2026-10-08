@@ -4,8 +4,8 @@
  * Usa DATABASE_URL do .env (conexão direta com o Postgres; nunca vai para o site).
  *
  *   npm run db -- status                         mostra o que está configurado
- *   npm run db -- migrate                        aplica 01, 02 e 04 (e 03 se houver RESEND_API_KEY no .env)
- *   npm run db -- smoke                          testa site → CRM de verdade e desfaz tudo no final
+ *   npm run db -- migrate                        aplica 01, 02, 04 e 05 (e 03 se houver RESEND_API_KEY no .env)
+ *   npm run db -- smoke                          testa site → CRM → projetos de verdade e desfaz tudo no final
  *   npm run db -- equipe list
  *   npm run db -- equipe add email@x.com "Nome"
  *   npm run db -- equipe remove email@x.com
@@ -20,7 +20,7 @@ import pg from "pg";
 const root = fileURLToPath(new URL("..", import.meta.url));
 if (existsSync(join(root, ".env"))) process.loadEnvFile(join(root, ".env"));
 
-const MIGRACOES = ["01-tabela-leads.sql", "02-painel-equipe.sql", "04-permissoes-site-crm.sql"];
+const MIGRACOES = ["01-tabela-leads.sql", "02-painel-equipe.sql", "04-permissoes-site-crm.sql", "05-projetos.sql"];
 const EMAIL = "03-aviso-email.sql";
 
 function fail(msg) {
@@ -81,10 +81,11 @@ async function migrate(c) {
 async function status(c) {
   const one = async (sql) => (await c.query(sql)).rows[0];
   const t = await one(`select to_regclass('public.leads') is not null as leads, to_regclass('public.equipe') is not null as equipe,
-                              to_regclass('public.lead_notas') is not null as notas, to_regclass('public.crm_config') is not null as config`);
+                              to_regclass('public.lead_notas') is not null as notas, to_regclass('public.crm_config') is not null as config,
+                              to_regclass('public.projetos') is not null as projetos`);
   const ok = (b) => (b ? "✔" : "✖");
-  console.log(`\nTabelas: ${ok(t.leads)} leads  ${ok(t.equipe)} equipe  ${ok(t.notas)} lead_notas  ${ok(t.config)} crm_config (aviso por e-mail)`);
-  if (!t.leads || !t.equipe || !t.notas) {
+  console.log(`\nTabelas: ${ok(t.leads)} leads  ${ok(t.equipe)} equipe  ${ok(t.notas)} lead_notas  ${ok(t.projetos)} projetos  ${ok(t.config)} crm_config (aviso por e-mail)`);
+  if (!t.leads || !t.equipe || !t.notas || !t.projetos) {
     console.log("\n→ Banco incompleto: rode  npm run db -- migrate\n");
     return;
   }
@@ -102,6 +103,14 @@ async function status(c) {
 
   const leads = await c.query(`select status, count(*)::int as n from public.leads group by 1 order by 1`);
   console.log(`Leads: ${leads.rows.length ? leads.rows.map((r) => `${r.status} ${r.n}`).join(" · ") : "nenhum ainda"}`);
+
+  const pj = await one(`select
+      (select count(*)::int from public.projetos) as total,
+      (select count(*)::int from public.leads l where l.status = 'fechado' and not exists (select 1 from public.projetos p where p.lead_id = l.id)) as sem_projeto,
+      exists (select 1 from pg_trigger where tgname = 'leads_fechado_update') as gatilho,
+      has_table_privilege('anon', 'public.projetos', 'select') as anon_le`);
+  console.log(`Projetos: ${pj.total}   ${ok(pj.gatilho)} contrato fechado no CRM vira projeto   ${ok(!pj.anon_le)} site não lê projetos`);
+  if (pj.sem_projeto) console.log(`  • ${pj.sem_projeto} lead(s) fechado(s) sem projeto (projeto apagado ou fechado antes da instalação). Crie à mão se precisar.`);
 
   const eq = await c.query(`select e.email, e.nome, exists (select 1 from auth.users u where lower(u.email) = e.email) as login
                             from public.equipe e order by e.nome`);
@@ -156,6 +165,14 @@ async function smoke(c) {
     await passo("CRM (equipe logada) enxerga o lead do site", async () => {
       const r = await c.query(`select status from public.leads where nome = 'Teste Automático'`);
       if (r.rows[0]?.status !== "novo") throw new Error("lead não apareceu na coluna Novo");
+    });
+    await passo("contrato fechado no CRM vira projeto com checklist", async () => {
+      await c.query(`update public.leads set status = 'fechado' where nome = 'Teste Automático'`);
+      const r = await c.query(`select count(t.id)::int as tarefas from public.projetos p
+                               join public.leads l on l.id = p.lead_id
+                               left join public.projeto_tarefas t on t.projeto_id = p.id
+                               where l.nome = 'Teste Automático'`);
+      if (!r.rows[0]?.tarefas) throw new Error("o projeto não foi criado (rode npm run db -- migrate)");
     });
   } finally {
     await c.query("rollback");

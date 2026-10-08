@@ -1,8 +1,8 @@
 import type { Lead } from "../../shared/leads";
 import { cx } from "../../shared/cx";
 import type { Membro } from "../api/types";
-import { ago, brl, dm, initials } from "../lib/format";
-import { activateOnKey } from "../lib/keys";
+import { ago, brl, dm, initials } from "../../painel/lib/format";
+import { activateOnKey } from "../../painel/lib/keys";
 import { followUp, membroNome, planoCurto } from "../lib/leads";
 
 export function FollowChip({ lead, hoje }: { lead: Lead; hoje: string }) {

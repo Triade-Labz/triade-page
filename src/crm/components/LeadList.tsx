@@ -1,8 +1,8 @@
 import type { Lead } from "../../shared/leads";
 import type { Membro } from "../api/types";
-import { brl } from "../lib/format";
+import { brl } from "../../painel/lib/format";
 import { STATUS_NOME, followUp, membroNome, planoCurto } from "../lib/leads";
-import { activateOnKey } from "../lib/keys";
+import { activateOnKey } from "../../painel/lib/keys";
 import { FollowChip } from "./LeadCard";
 
 interface Props {

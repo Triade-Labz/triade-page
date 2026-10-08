@@ -2,19 +2,19 @@ import { useCallback, useMemo, useState } from "react";
 import type { Lead, LeadStatus, LeadUpdate } from "../../shared/leads";
 import type { DemoApi } from "../api/demoApi";
 import type { CrmApi, Membro } from "../api/types";
-import { errMsg } from "../lib/errors";
-import { initials, ymd } from "../lib/format";
+import { errMsg } from "../../painel/lib/errors";
+import { ymd } from "../../painel/lib/format";
 import { buildCsv, computeMetrics, filterLeads, type Filtros } from "../lib/leads";
 import { useLeads } from "../hooks/useLeads";
-import { useNow } from "../hooks/useNow";
+import { useNow } from "../../painel/hooks/useNow";
 import { Board } from "./Board";
-import { Brand } from "./Brand";
-import { IconBell, IconKey, IconOut } from "./icons";
+import { IconBell } from "../../painel/components/icons";
+import { TopBar } from "../../painel/components/TopBar";
 import { LeadDrawer } from "./LeadDrawer";
 import { LeadList } from "./LeadList";
 import { Metrics } from "./Metrics";
 import { NewLeadDialog } from "./NewLeadDialog";
-import { useToast } from "./toastContext";
+import { useToast } from "../../painel/components/toastContext";
 import { Toolbar, type View } from "./Toolbar";
 
 interface Props {
@@ -22,8 +22,13 @@ interface Props {
   me: Membro;
   equipe: Membro[];
   initialLeads: Lead[];
-  onLogout: () => void;
+  onLogout: () => Promise<void>;
   onChangePassword: () => void;
+}
+
+function leadDaUrl(leads: Lead[]): string | null {
+  const id = new URLSearchParams(location.search).get("lead");
+  return id && leads.some((l) => l.id === id) ? id : null;
 }
 
 function download(name: string, content: string, type: string) {
@@ -44,8 +49,9 @@ export function Dashboard({ api, me, equipe, initialLeads, onLogout, onChangePas
 
   const [filtros, setFiltros] = useState<Filtros>({ q: "", plano: "", responsavel: "" });
   const [view, setView] = useState<View>("board");
-  const [drawerId, setDrawerId] = useState<string | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  // Link vindo do controle de projetos: crm.html?lead=<id> já abre o lead.
+  const [drawerId, setDrawerId] = useState<string | null>(() => leadDaUrl(initialLeads));
+  const [drawerOpen, setDrawerOpen] = useState(() => drawerId !== null);
   const [notesVersion, setNotesVersion] = useState(0);
   const [newOpen, setNewOpen] = useState(false);
   const [notifPerm, setNotifPerm] = useState(() => ("Notification" in window ? Notification.permission : "denied"));
@@ -98,14 +104,6 @@ export function Dashboard({ api, me, equipe, initialLeads, onLogout, onChangePas
     [remove, toast],
   );
 
-  async function logout() {
-    try {
-      await api.signOut();
-    } finally {
-      onLogout();
-    }
-  }
-
   async function askNotifications() {
     const p = await Notification.requestPermission();
     setNotifPerm(p);
@@ -114,30 +112,13 @@ export function Dashboard({ api, me, equipe, initialLeads, onLogout, onChangePas
 
   return (
     <div id="app">
-      <header className="top">
-        <Brand />
-        <div className="spacer" />
-        {realtime === "off" && !api.demo && (
-          <span className="rt-off" title="O tempo real não conectou. O painel consulta o banco a cada 30 segundos.">
-            atualizando a cada 30 s
-          </span>
-        )}
+      <TopBar me={me} realtimeOff={realtime === "off" && !api.demo} onChangePassword={onChangePassword} onLogout={() => void onLogout()}>
         {!api.demo && notifPerm === "default" && (
           <button className="icon-btn" type="button" title="Avisar quando chegar lead novo" aria-label="Ativar avisos de lead novo" onClick={askNotifications}>
             <IconBell />
           </button>
         )}
-        <div className="who">
-          <span className="av">{initials(me.nome)}</span>
-          <span className="name">{me.nome}</span>
-        </div>
-        <button className="icon-btn" type="button" title="Trocar senha" aria-label="Trocar minha senha" onClick={onChangePassword}>
-          <IconKey />
-        </button>
-        <button className="icon-btn" type="button" title="Sair" aria-label="Sair" onClick={logout}>
-          <IconOut />
-        </button>
-      </header>
+      </TopBar>
 
       {api.demo && (
         <div className="demo">

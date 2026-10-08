@@ -23,7 +23,7 @@ function avisoDeConfiguracao(mode: string): Plugin {
       if (faltando.length && mode === "production") {
         console.warn(
           `\n⚠️  Variáveis ausentes: ${faltando.join(", ")}.\n` +
-            "   O formulário do site NÃO vai gravar leads e o CRM vai mostrar a tela de configuração.\n" +
+            "   O formulário do site NÃO vai gravar leads e o CRM e os projetos vão mostrar a tela de configuração.\n" +
             "   Configure-as em .env (local) ou nas variáveis de ambiente da hospedagem.\n",
         );
       }
@@ -35,13 +35,14 @@ export default defineConfig(({ mode }) => ({
   plugins: [react(), avisoDeConfiguracao(mode)],
   build: {
     rolldownOptions: {
-      // Três páginas independentes: o site não carrega o código do CRM e vice-versa.
+      // Páginas independentes: o site não carrega o código dos painéis e vice-versa.
       input: {
         site: resolve(root, "index.html"),
         privacidade: resolve(root, "politica-de-privacidade.html"),
         crm: resolve(root, "crm.html"),
+        projetos: resolve(root, "desenvolvimento-projetos.html"),
       },
-      // O React vira um arquivo próprio, em cache entre as três páginas.
+      // O React vira um arquivo próprio, em cache entre as páginas.
       output: {
         codeSplitting: { groups: [{ name: "react", test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/ }] },
       },

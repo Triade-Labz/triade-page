@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Lead, LeadStatus } from "../../shared/leads";
 import { cx } from "../../shared/cx";
 import type { Membro } from "../api/types";
-import { brl } from "../lib/format";
+import { brl } from "../../painel/lib/format";
 import { STATUS } from "../lib/leads";
 import { LeadCard } from "./LeadCard";
 

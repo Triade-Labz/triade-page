@@ -49,3 +49,18 @@ export const IconKey = (p: P) => (
     <path {...stroke} d="M14.5 9.5a4 4 0 1 1-1.4-3.05M14.5 9.5 21 16v3h-3v-2h-2v-2h-2l-1.2-1.2" />
   </svg>
 );
+export const IconFolder = (p: P) => (
+  <svg {...base} {...p}>
+    <path {...stroke} d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+  </svg>
+);
+export const IconLink = (p: P) => (
+  <svg {...base} {...p}>
+    <path {...stroke} d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" />
+  </svg>
+);
+export const IconArrow = (p: P) => (
+  <svg {...base} {...p}>
+    <path {...stroke} d="M5 12h14m0 0-5-5m5 5-5 5" />
+  </svg>
+);

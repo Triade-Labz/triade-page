@@ -4,9 +4,11 @@
 - `index.html` + `src/landing/` — a landing page.
 - `politica-de-privacidade.html` + `src/privacy/` — política de privacidade (linkada no formulário e no rodapé).
 - `crm.html` + `src/crm/` — o painel do CRM (fica no mesmo site, em `/crm.html`; não aparece no Google).
+- `desenvolvimento-projetos.html` + `src/projetos/` — controle de projetos (em `/desenvolvimento-projetos`, mesmo login do CRM).
 - `database/01-tabela-leads.sql` e `database/02-painel-equipe.sql` — criam o banco do CRM.
 - `database/03-aviso-email.sql` — manda um e-mail a cada lead novo do site.
 - `database/04-permissoes-site-crm.sql` — libera o site para gravar leads e o CRM para lê-los (obrigatório).
+- `database/05-projetos.sql` — controle de projetos; cada lead que passa para "Fechado" no CRM vira projeto sozinho.
 - `database/extra-atualizacao-servicos.sql` — só se a Parte 1 tiver sido rodada antes dos serviços novos.
 - `public/triade-simbolo.svg` — símbolo da marca.
 - `vercel.json` — configuração de publicação e cabeçalhos de segurança na Vercel.
@@ -21,6 +23,7 @@ Em seguida faça os passos 5, 6 e 7 abaixo. **Pelo SQL Editor:**
 3. Rode `database/02-painel-equipe.sql`. Depois cadastre os sócios: na seção 1 do arquivo há um `insert` comentado; troque os e-mails e nomes, tire os `--` e rode só esse trecho.
 4. Rode `database/04-permissoes-site-crm.sql`.
    **Projeto que já estava funcionando "pela metade"** (formulário dando erro ou CRM vazio): rode só este arquivo, é a correção.
+4b. Rode `database/05-projetos.sql` (controle de projetos). Na primeira vez, os leads que já estavam "Fechado" também viram projeto.
 5. Em **Authentication → Sign In / Providers**, desative **Allow new users to sign up**.
 6. Em **Authentication → Users → Add user → Create new user**, crie um usuário para cada sócio (mesmo e-mail do passo 3)
    com uma **senha provisória** e marque **Auto Confirm User**. Passe a senha a cada um por um canal privado: no primeiro
@@ -50,8 +53,8 @@ WhatsApp, e-mail, CNPJ e redes da empresa ficam em `src/shared/siteConfig.ts`. C
 2. Em **Environment Variables**, para Production e Preview: `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY`.
    Clique em **Deploy**.
 3. Depois de mudar variáveis, faça um novo deploy (**Deployments → ⋯ → Redeploy**): elas entram no build.
-4. Em Supabase → **Authentication → URL Configuration**, coloque o endereço do site em **Site URL** e o endereço
-   do CRM (`https://SEU-ENDERECO/crm.html`) em **Redirect URLs** (necessário para o "Esqueci minha senha" funcionar).
+4. Em Supabase → **Authentication → URL Configuration**, coloque o endereço do site em **Site URL** e, em **Redirect URLs**,
+   `https://SEU-ENDERECO/**` (vale para o CRM e para os projetos; necessário para o "Esqueci minha senha" funcionar).
 
 ## 4. Testar
 Envie um pedido pelo formulário do site: ele aparece na coluna **Novo** do CRM em tempo real e o e-mail chega em segundos

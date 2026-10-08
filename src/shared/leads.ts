@@ -25,6 +25,11 @@ export const PLANO_INFO: Record<Plano, PlanoInfo> = {
   duvida: { id: "duvida", rotulo: "Ainda não sei, quero orientação", curto: "Quer orientação", grupo: "Outros serviços" },
 };
 
+/** Nome curto do interesse/plano, para cards e filtros. */
+export function planoCurto(p: Plano | string): string {
+  return p in PLANO_INFO ? PLANO_INFO[p as Plano].curto : p;
+}
+
 export function isPlano(v: unknown): v is Plano {
   return typeof v === "string" && (PLANOS as readonly string[]).includes(v);
 }

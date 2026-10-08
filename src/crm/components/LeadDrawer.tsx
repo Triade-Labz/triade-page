@@ -4,12 +4,13 @@ import { cx } from "../../shared/cx";
 import { formatBrPhone, waMeLink } from "../../shared/phone";
 import { SITE } from "../../shared/siteConfig";
 import type { CrmApi, Membro, Nota } from "../api/types";
-import { errMsg } from "../lib/errors";
-import { ago, dataHora, formatValorInput, parseValor } from "../lib/format";
+import { errMsg } from "../../painel/lib/errors";
+import { ago, dataHora, formatValorInput, parseValor } from "../../painel/lib/format";
 import { STATUS_NOME, describeOrigem, membroNome, planoCurto } from "../lib/leads";
-import { Dialog } from "./Dialog";
-import { IconCopy, IconWa, IconX } from "./icons";
-import { useToast } from "./toastContext";
+import { Dialog } from "../../painel/components/Dialog";
+import { IconCopy, IconFolder, IconWa, IconX } from "../../painel/components/icons";
+import { APPS } from "../../painel/appContext";
+import { useToast } from "../../painel/components/toastContext";
 
 interface Props {
   api: CrmApi;
@@ -201,6 +202,12 @@ export function LeadDrawer({ api, lead, open, me, equipe, now, notesVersion, onC
                   <IconCopy />
                   <span>{formatBrPhone(lead.whatsapp)}</span>
                 </button>
+                {lead.status === "fechado" && (
+                  <a className="btn btn-ghost" href={`${APPS.projetos.href}?lead=${encodeURIComponent(lead.id)}`}>
+                    <IconFolder />
+                    Abrir projeto
+                  </a>
+                )}
               </div>
 
               <div className="grid2">
@@ -305,7 +312,10 @@ export function LeadDrawer({ api, lead, open, me, equipe, now, notesVersion, onC
               </ul>
 
               <div className="danger">
-                <p>Se a pessoa pedir para apagar os dados dela (direito previsto na LGPD), exclua o lead aqui. As anotações também são apagadas.</p>
+                <p>
+                  Se a pessoa pedir para apagar os dados dela (direito previsto na LGPD), exclua o lead aqui. As anotações também são apagadas. Se já
+                  houver projeto deste cliente, ele continua no controle de projetos (apague por lá, se for o caso).
+                </p>
                 <button className="btn btn-danger" type="button" onClick={() => setConfirmDelete(true)}>
                   Excluir lead
                 </button>
