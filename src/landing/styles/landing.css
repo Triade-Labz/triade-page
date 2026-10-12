@@ -56,7 +56,6 @@ button,input,select{font:inherit;color:inherit}
   display:inline-flex;align-items:center;gap:10px;
   font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--sand);margin:0 0 20px;
 }
-.label::before{content:"";width:24px;height:1px;background:var(--sand);opacity:.7}
 .h-section{
   font-size:clamp(38px,6vw,64px);line-height:1.02;font-weight:700;letter-spacing:-0.035em;margin:0 0 20px;max-width:16ch;
 }
@@ -66,7 +65,6 @@ button,input,select{font:inherit;color:inherit}
 .section-head{margin-bottom:56px}
 .section-head.center{text-align:center}
 .section-head.center .h-section,.section-head.center .lead{margin-left:auto;margin-right:auto}
-.section-head.center .label::after{content:"";width:24px;height:1px;background:var(--sand);opacity:.7}
 
 /* ---------- Buttons ---------- */
 .btn{
@@ -297,7 +295,6 @@ button,input,select{font:inherit;color:inherit}
 .step .num sup{font-size:14px;letter-spacing:.1em;color:var(--sand);vertical-align:top;margin-left:4px;font-weight:600}
 .step h3{font-size:20px;font-weight:600;margin:0 0 8px;letter-spacing:-0.015em}
 .step p{margin:0;color:var(--text-muted)}
-.step .dur{display:inline-flex;margin-top:20px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);border:1px solid rgba(255,107,61,.3);padding:5px 12px;border-radius:var(--r-pill)}
 
 /* ==========================================================
    FAQ
@@ -446,7 +443,7 @@ button,input,select{font:inherit;color:inherit}
 /* ==========================================================
    TRÍADE LABS — ajustes de marca
    ========================================================== */
-.label,.metric small,.marquee-title,.plan .tier,.step .dur,.project .meta small,.field label,.foot-col h4,.ribbon,.price-note,.form-note,.step .num sup{
+.label,.metric small,.marquee-title,.plan .tier,.project .meta small,.field label,.foot-col h4,.ribbon,.price-note,.form-note,.step .num sup{
   font-family:var(--mono);text-transform:none;letter-spacing:.02em;font-weight:500}
 .label{font-size:13px}
 .field label,.foot-col h4,.plan .tier,.project .meta small,.metric small{font-size:12.5px}

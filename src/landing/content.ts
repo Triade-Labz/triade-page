@@ -117,10 +117,10 @@ export const PLANS: Plan[] = [
 ];
 
 export const STEPS = [
-  { title: "Briefing", text: "Entendemos seu negócio, seu público e seus objetivos em uma conversa estratégica.", dur: "1–2 dias" },
-  { title: "Design", text: "Criamos o layout com a sua identidade. Você revisa e aprova antes de qualquer código.", dur: "3–5 dias" },
-  { title: "Desenvolvimento", text: "Transformamos o design em um site rápido, seguro e otimizado para buscas.", dur: "5–7 dias" },
-  { title: "Lançamento", text: "Configuramos domínio e hospedagem, testamos tudo e colocamos seu site no ar.", dur: "1 dia" },
+  { title: "Briefing", text: "Entendemos seu negócio, seu público e seus objetivos em uma conversa estratégica." },
+  { title: "Design", text: "Criamos o layout com a sua identidade. Você revisa e aprova antes de qualquer código." },
+  { title: "Desenvolvimento", text: "Transformamos o design em um site rápido, seguro e otimizado para buscas." },
+  { title: "Lançamento", text: "Configuramos domínio e hospedagem, testamos tudo e colocamos seu site no ar." },
 ];
 
 export const FAQ = [
@@ -130,7 +130,7 @@ export const FAQ = [
   },
   {
     q: "O domínio e a hospedagem estão inclusos?",
-    a: "Configuramos tudo para você. A hospedagem do primeiro ano está inclusa em todos os planos; o domínio (.com.br) é registrado em nome da sua empresa, para que ele seja sempre seu.",
+    a: "Configuramos tudo para você. A contratação e o pagamento do domínio e da hospedagem são responsabilidade do cliente, exceto na modalidade mensal, em que eles já estão inclusos.",
   },
   {
     q: "Posso pedir alterações depois da entrega?",
@@ -146,7 +146,7 @@ export const FAQ = [
   },
   {
     q: "Quais são as formas de pagamento?",
-    a: "Pix, boleto ou cartão de crédito. No pagamento único você pode parcelar sem juros; na modalidade mensal, o valor é dividido em 12 parcelas sem entrada.",
+    a: "Pix, boleto ou cartão de crédito. No pagamento único você pode parcelar em até 3x sem juros; na modalidade mensal, o valor é dividido em 12 parcelas sem entrada.",
   },
 ];
 

@@ -39,7 +39,6 @@ export function Process() {
                 </span>
                 <h3>{s.title}</h3>
                 <p>{s.text}</p>
-                <span className="dur">{s.dur}</span>
               </Reveal>
             ))}
           </ol>
