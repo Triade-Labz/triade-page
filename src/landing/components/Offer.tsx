@@ -101,9 +101,9 @@ export function Offer({ onChoosePlan }: { onChoosePlan: (p: Plano) => void }) {
               <h3 id={`plan-${p.plano}`}>{p.title}</h3>
               <p className="desc">{p.desc}</p>
               <div className="price">
-                <span className="val" aria-label="Valor sob consulta">—</span>
+                <span className="val consult">Sob consulta</span>
               </div>
-              <p className="price-note">Consultar disponibilidade</p>
+              <p className="price-note">Orçamento personalizado e gratuito</p>
               <ul>
                 {p.inherits && (
                   <li className="inherit">
