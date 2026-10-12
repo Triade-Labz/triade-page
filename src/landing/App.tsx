@@ -8,6 +8,7 @@ import type { PlanPrefill } from "./components/LeadForm";
 import { Navbar } from "./components/Navbar";
 import { Offer } from "./components/Offer";
 import { Process } from "./components/Process";
+import { Redes } from "./components/Redes";
 import { Services } from "./components/Services";
 
 export function App() {
@@ -27,6 +28,7 @@ export function App() {
         <Process />
         <Faq />
         <Contact prefill={prefill} />
+        <Redes />
       </main>
       <Footer />
       <WhatsAppFloat />

@@ -22,7 +22,7 @@ export const SITE: Readonly<SiteConfig> = {
   /** Ex.: "00.000.000/0001-00" */
   cnpj: "",
   /** URLs completas dos perfis. */
-  instagram: "",
+  instagram: "https://www.instagram.com/triade_labs/",
   linkedin: "",
   behance: "",
   /** Canal da LGPD citado na política de privacidade. */
