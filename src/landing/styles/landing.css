@@ -271,6 +271,7 @@ button,input,select{font:inherit;color:inherit}
 .price{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
 .price .cur{font-size:18px;font-weight:600;color:var(--sand)}
 .price .val{font-size:clamp(44px,5vw,56px);font-weight:700;letter-spacing:-0.04em;color:var(--beige);line-height:1;transition:opacity .25s,transform .4s var(--ease)}
+.price .val.consult{font-size:clamp(28px,3vw,32px);letter-spacing:-0.025em;white-space:nowrap}
 .price .val.swap{opacity:0;transform:translateY(8px)}
 .price .per{color:var(--text-muted);font-size:14px}
 .price-note{font-size:12px;color:var(--text-muted);margin:0 0 28px;min-height:20px}
