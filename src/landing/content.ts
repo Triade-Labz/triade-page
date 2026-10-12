@@ -46,7 +46,6 @@ export const STATS: Stat[] = [
   { value: null, suffix: "+", label: "sites entregues" }, // PREENCHER quando houver número real
   { value: null, suffix: "", label: "clientes ativos" }, // PREENCHER quando houver número real
   { value: 99.9, decimals: 1, suffix: "%", label: "de uptime garantido" },
-  { value: 24, suffix: "h", label: "de suporte, 7 dias por semana" },
 ];
 
 /** Logos de clientes (com autorização). Lista vazia = faixa oculta. */
@@ -136,10 +135,6 @@ export const FAQ = [
   {
     q: "Posso pedir alterações depois da entrega?",
     a: "Sim. Todos os planos incluem 30 dias de ajustes após o lançamento. No plano Completo, alterações e atualizações são contínuas e fazem parte da manutenção.",
-  },
-  {
-    q: "Como funciona o suporte 24h?",
-    a: "Você tem um canal direto via WhatsApp e e-mail, com atendimento a qualquer hora, inclusive fins de semana e feriados. Incidentes críticos têm tempo de resposta de até 1 hora.",
   },
   {
     q: "Como funciona a análise de vulnerabilidades? É segura para o meu sistema?",

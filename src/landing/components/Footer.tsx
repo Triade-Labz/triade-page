@@ -29,7 +29,7 @@ export function Footer() {
               <Wordmark className="wm" />
             </a>
             <p className="foot-tagline">construir · sustentar · proteger</p>
-            <p>Três sócios cuidando da tecnologia da sua empresa: do site ao suporte e à segurança.</p>
+            <p>Cuidando da tecnologia da sua empresa: do site ao suporte e à segurança.</p>
             <div className="socials">
               {SOCIALS.filter((s) => SITE[s.key]).map(({ key, label, Icon }) => (
                 <a key={key} href={SITE[key]} target="_blank" rel="noopener" aria-label={label}>
