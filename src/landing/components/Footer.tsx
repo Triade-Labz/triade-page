@@ -4,7 +4,7 @@ import { SITE, companyWaLabel, companyWaLink, type SocialKey } from "../../share
 import { NAV_LINKS } from "../content";
 import { IconBehance, IconInstagram, IconLinkedin, IconWhatsApp } from "./icons";
 
-const SOCIALS: { key: SocialKey; label: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }[] = [
+export const SOCIALS: { key: SocialKey; label: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }[] = [
   { key: "instagram", label: "Instagram", Icon: IconInstagram },
   { key: "linkedin", label: "LinkedIn", Icon: IconLinkedin },
   { key: "behance", label: "Behance", Icon: IconBehance },
